@@ -16,19 +16,14 @@ const Form = () => {
     // const value = target.value;
     const name = target.name;
     const value = target.type === "checkbox" ? target.checked : target.value;
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   [name]: value,
-    // }));
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
   const handleInterestChange = (event) => {
-  
     const { options } = event.target;
-      const selectedValue = [];
+    const selectedValue = [];
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
         selectedValue.push(options[i].value);
@@ -42,16 +37,20 @@ const Form = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData);
-
-    // setFormData({
-    //   name: "",
-    //   email: "",
-    //   age: "",
-    //   gender: "",
-    //   address: "",
-    //   country: "",
-    //   interests: "",
-    // });
+    setFormData((prevData) => ({
+      ...prevData,
+      formData,
+    }));
+    setFormData({
+      name: "",
+      email: "",
+      age: "",
+      gender: "",
+      address: "",
+      country: "",
+      interests: [],
+      agree: false,
+    });
   };
 
   return (
@@ -124,17 +123,6 @@ const Form = () => {
         <br />
         <label>
           Interest:
-          {/* <select
-            name="interests"
-            value={formData.interests}
-            onChange={handleInterestChange}
-          >
-            <option value="football">Football</option>
-            <option value="music">Music</option>
-            <option value="reading">Reading</option>
-            <option value="gaming">Gaming</option>
-            <option value="travel">Traveling</option>
-          </select> */}
           <select
             name="interests"
             multiple
@@ -144,7 +132,7 @@ const Form = () => {
             <option value="music">Music</option>
             <option value="sports">Sports</option>
             <option value="reading">Reading</option>
-            <option value="travel">Travelling</option>
+            <option value="travel">Traveling</option>
           </select>
         </label>
         <br />
@@ -162,7 +150,7 @@ const Form = () => {
       </form>
 
       <div>
-        <h1>All Data</h1>
+        <h1>Display Data here:</h1>
         <p>Name: {formData.name}</p>
         <p>Email: {formData.email}</p>
         <p>Age: {formData.age}</p>
@@ -170,7 +158,7 @@ const Form = () => {
         <p>Address: {formData.address}</p>
         <p>Country: {formData.country}</p>
         <p>Interests:{formData.interests.join(",")}</p>
-        <p>Agree: {formData.agree ? "Yes" : "No"}</p>
+        <p>Agreed to terms: {formData.agree ? "Yes" : "No"}</p>
       </div>
     </div>
   );
